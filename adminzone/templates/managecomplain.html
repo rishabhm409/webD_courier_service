@@ -1,0 +1,201 @@
+ <!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>MANAGE COMPLAIN</title>
+    <style>
+
+        #outer
+        {
+            height: auto px;
+            width: 1000px;
+            //border: 1px solid;
+            margin: 0px auto;
+        }
+
+        #logo
+        {
+            height:150px;
+            width:150px;
+            background-color: blue;
+            float: left;
+        }
+
+        #text
+        {
+            height: 150px;
+            width:850px;
+            background-color: red;
+            float: right;
+            text-align: center;
+            font-size: 40px;
+            border: 1px red;
+            border-radius: 15px 15px 15px 15px;
+        }
+
+
+        #menu
+        {
+           height: 210px;
+            width: 1000px;
+            background-color: aquamarine;
+            border-radius: 15px 15px 15px 15px;
+
+        }
+
+        #menu ul li
+{
+    display:inline-block;
+    padding:10px;
+    margin-left:-10px;
+            text-align: justify;
+    font-size:14px;
+            margin-top: 10px;
+
+}
+
+#menu ul li a
+{
+    text-decoration: none;
+    color:black;
+
+}
+
+
+#menu ul li a:hover
+{
+    color:red;
+    text-decoration: none;
+}
+
+
+        #main
+        {
+            height: 800px;
+            width:1000px;
+            background-color: chartreuse;
+            border-radius: 15px 15px 15px 15px;
+            margin-top: -16px;
+        }
+
+        #footer
+        {
+            height: 100px;
+            width: 1000px;
+            //background-color: black;
+            border-radius: 15px 15px 15px 15px;
+
+        }
+
+        #f1
+        {
+            height: 100px;
+            width: 500px;
+            background-color: red;
+            float: left;
+            border-radius: 15px 15px 15px 15px;
+            text-align: center;
+            font-size: 20px;
+
+        }
+
+         #f2
+        {
+            height: 100px;
+            width: 500px;
+            background-color:blueviolet;
+             float: right;
+             border-radius: 15px 15px 15px 15px;
+             text-align: center;
+
+        }
+
+
+
+    </style>
+
+
+</head>
+<body>
+       <span style="color:red;font-size:20px;"><marquee onmouseover="stop()" onmouseout="start()" behavior="alternate" scrollamount="10">WELCOME TO THE ADMIN PAGE OF SPEEDEX </marquee></span>
+
+<div id="outer">
+    <div id="header">
+
+        <div id="logo">
+            {% load static %}
+
+             <img src="{% static 'images/logo.png' %}" width="150px" height="150px" alt="NOT FOUND" value="LOGO"/>
+        </div>
+
+        <div id="text">
+
+            <h2>WELCOME TO ADMIN PAGE</h2>
+
+        </div>
+
+    </div>
+
+    <div id="menu">
+        <ul>
+            <li><a href="{% url 'adminhome' %}">ADMIN HOME</a></li>
+            <li><a href="{% url 'managecomplain' %}">MANAGE COMPLAIN</a></li>
+            <li><a href="{% url 'carrermanagement' %}">CAREER MANAGEMENT</a></li>
+            <li><a href="{% url 'packet' %}">MANAGE CONSIGNMENT</a></li>
+            <li><a href="{% url 'city' %}">MANAGE CITY</a></li>
+            <li><a href="{% url 'qualification' %}">ADD QUALIFICATION</a></li>
+            <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+
+        </ul>
+    </div>
+
+    <div id="main">
+        <span style="color: blue; text-align: center;"><h2>COMPLAINS OF USERS</h2></span>
+         <table style="margin: 0px auto;width:50%;" border="1px solid" cellpadding="5px" cellspacing="5px">
+             <tr>
+                 <th>ID</th>
+             <th>NAME</th>
+             <th>GENDER</th>
+             <th>SUBJECT</th>
+             <th>CONTACT NUMBER</th>
+             <th>EMAIL ADDRESS</th>
+             <th>COMPLAIN ENTERED</th>
+             <th>DELETE</th>
+             </tr>
+             {% for e in complain %}
+                 <tr>
+                 <td>{{ e.id }}</td>
+                 <td>{{ e.username }}</td>
+                 <td>{{ e.gender }}</td>
+                 <td>{{ e.subject }}</td>
+                 <td>{{ e.contactno}}</td>
+                 <td>{{ e.emailaddress}}</td>
+                 <td>{{ e.compalintext}}</td>
+                 <td><a href="{% url 'delete' e.id %}">DELETE</a></td>
+
+                 </tr>
+             {% endfor %}
+         </table>
+    </div>
+
+    <div id="footer">
+
+        <div id="f1">
+
+            <h2>COPYRIGHT&copy;  TO SPEEDEX </h2>
+
+        </div>
+
+        <div id="f2">
+            <h2>DEVELOPED BY:-</h2>
+
+            <h3>Rishabh mittal</h3>
+        </div>
+
+
+    </div>
+
+
+</div>
+</body>
+</html>

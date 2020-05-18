@@ -1,0 +1,274 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MANAGE CONSIGNMENT</title>
+    <style>
+
+        #outer
+        {
+            height: auto px;
+            width: 1000px;
+            //border: 1px solid;
+            margin: 0px auto;
+        }
+
+        #logo
+        {
+            height:150px;
+            width:150px;
+            background-color: blue;
+            float: left;
+        }
+
+        #text
+        {
+            height: 150px;
+            width:850px;
+            background-color: red;
+            float: right;
+            text-align: center;
+            font-size: 40px;
+            border: 1px red;
+            border-radius: 15px 15px 15px 15px;
+        }
+
+
+        #menu
+        {
+           height: 210px;
+            width: 1000px;
+            background-color: aquamarine;
+            border-radius: 15px 15px 15px 15px;
+
+        }
+
+        #menu ul li
+{
+    display:inline-block;
+    padding:10px;
+    margin-left:-10px;
+            text-align: justify;
+    font-size:14px;
+            margin-top: 10px;
+
+}
+
+#menu ul li a
+{
+    text-decoration: none;
+    color:black;
+
+}
+
+
+#menu ul li a:hover
+{
+    color:red;
+    text-decoration: none;
+}
+
+
+        #main
+        {
+            height: 800px;
+            width:1000px;
+            background-color: chartreuse;
+            border-radius: 15px 15px 15px 15px;
+            margin-top: -16px;
+        }
+
+        #footer
+        {
+            height: 100px;
+            width: 1000px;
+            //background-color: black;
+            border-radius: 15px 15px 15px 15px;
+
+        }
+
+        #f1
+        {
+            height: 100px;
+            width: 500px;
+            background-color: red;
+            float: left;
+            border-radius: 15px 15px 15px 15px;
+            text-align: center;
+            font-size: 20px;
+
+        }
+
+         #f2
+        {
+            height: 100px;
+            width: 500px;
+            background-color:blueviolet;
+             float: right;
+             border-radius: 15px 15px 15px 15px;
+             text-align: center;
+
+        }
+
+
+
+    </style>
+
+
+</head>
+<body>
+       <span style="color:red;font-size:20px;"><marquee onmouseover="stop()" onmouseout="start()" behavior="alternate" scrollamount="10">WELCOME TO THE ADMIN PAGE OF SPEEDEX </marquee></span>
+
+<div id="outer">
+    <div id="header">
+
+        <div id="logo">
+            {% load static %}
+
+             <img src="{% static 'images/logo.png' %}" width="150px" height="150px" alt="NOT FOUND" value="LOGO"/>
+        </div>
+
+        <div id="text">
+
+            <h2>WELCOME TO ADMIN PAGE</h2>
+
+        </div>
+
+    </div>
+
+    <div id="menu">
+        <ul>
+            <li><a href="{% url 'adminhome' %}">ADMIN HOME</a></li>
+            <li><a href="{% url 'managecomplain' %}">MANAGE COMPLAIN</a></li>
+            <li><a href="{% url 'carrermanagement' %}">CAREER MANAGEMENT</a></li>
+            <li><a href="{% url 'packet' %}">MANAGE CONSIGNMENT</a></li>
+            <li><a href="{% url 'city' %}">MANAGE CITY</a></li>
+            <li><a href="{% url 'qualification' %}">ADD QUALIFICATION</a></li>
+            <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+
+        </ul>
+    </div>
+
+    <div id="main">
+        <form method="post" action="{% url 'calling' %}">
+        {% csrf_token %}
+            <h2 style="color: blue;text-align: center;">ADD CONSIGNMENT</h2>
+            <table style="margin: 0px auto;width:50%" border="1" cellspacing="5px" cellpadding="5px">
+                <tr>
+                    <td>ENTER REFFERENCE NUMBER </td>
+                    <td><input type="text" name="refno" value="{{refno}}" readonly/></td>
+                </tr>
+
+                <tr>
+                    <td>ENTER SENDER NAME :</td>
+                    <td><input  type="text" name="sendername"  /></td>
+                </tr>
+
+                <tr>
+                    <td>ENTER SENDER ADDRESS :-</td>
+                    <td><textarea name="senderaddress"> </textarea> </td>
+                </tr>
+
+                <tr>
+                    <td>ENTER SENDERS MOBILE NUMBER :-</td>
+                    <td><input  type="text" name="sendermobo" /></td>
+                </tr>
+
+                <tr>
+                    <td>ENTER RECEIVER NAME :</td>
+                    <td><input  type="text" name="receivername" /></td>
+                </tr>
+
+                <tr>
+                    <td>ENTER RECEIVER ADDRESS :-</td>
+                    <td><textarea name="receiveraddress"> </textarea> </td>
+                </tr>
+
+                <tr>
+                    <td>ENTER RECEIVER MOBILE NUMBER :-</td>
+                    <td><input  type="text" name="receivermobno" /></td>
+                </tr>
+                <tr>
+                    <td>ENTER SOURCE CITY</td>
+                    <td><select name="source">
+                    <option>--SELECT CITY--</option>
+                        {% for c in cities %}
+                        <option>{{ c.cityname }}</option>
+                        {% endfor %}
+
+                    </select></td>
+                </tr>
+
+                <tr>
+                    <td>ENTER MIDDLE CITY</td>
+                    <td><select name="mid">
+                        <option>--SELECT CITY--</option>
+                        {% for c in cities %}
+                        <option>{{ c.cityname }}</option>
+                        {% endfor %}
+
+                    </select></td>
+                </tr>
+
+                <tr>
+                     <td>ENTER DESTINATION CITY</td>
+                     <td><select name="destination">
+                        <option>--SELECT CITY--</option>
+                        {% for c in cities %}
+                        <option>{{ c.cityname }}</option>
+                        {% endfor %}
+                    </select></td>
+                </tr>
+
+                <tr>
+                    <td>ENTER WEIGHT OF CONSIGNMENT</td>
+                    <td><input  type="text" name="weight" required /></td>
+                </tr>
+
+                <tr>
+                    <td>ENTER COST OF CONSIGNMENT</td>
+                    <td><input  type="text" name="charge" /></td>
+                </tr>
+
+                 <tr>
+                    <td>ENTER STATUS OF CONSIGNMENT</td>
+                    <td><select name="status">
+                        <option>INITIATED</option>
+                        <option>PENDING</option>
+                        <option>DELIEVERD</option>
+                    </select></td>
+                </tr>
+
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="add"></td>
+                </tr>
+
+
+            </table>
+        </form>
+        <h1 style="text-align:center;"><a href="{% url 'parcel' %}">Parcel detail</a></h1>
+
+    </div>
+
+    <div id="footer">
+
+        <div id="f1">
+
+            <h2>COPYRIGHT&copy;  TO SPEEDEX </h2>
+
+        </div>
+
+        <div id="f2">
+            <h2>DEVELOPED BY:-</h2>
+
+            <h3>Rishabh mittal</h3>
+        </div>
+
+
+    </div>
+
+
+</div>
+</body>
+</html>

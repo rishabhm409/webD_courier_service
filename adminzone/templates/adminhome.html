@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>welcome to admin home</title>
+    <style>
+        #outer{
+            height:auto;
+            width:1000px;
+            //border: 1px solid black;
+            margin: 0px auto;
+        }
+        #header{
+            height:150px;
+            width:1000px;
+            //background-color:red;
+        }
+        #h1{
+            height:150px;
+            width:150px;
+            float:left;
+            //background-color:yellow;
+        }
+        #h2{
+            height:150px;
+            width:850px;
+            float:left;
+            //background-color:blue;
+            font-size:76px;
+            text-align:center;
+            background-color: whitesmoke;
+        }
+        #h2 p{
+        margin-top:15px;
+            
+        }
+        #menu{
+            height:50px;
+            width:1000px;
+            background-color:black;
+            border:1px solid black;
+            color: white;
+            border-radius: 20px;
+            margin-top: 10px;
+            
+        }
+        #main{
+            margin-top:-20px;
+            height:600px;
+            width:1000px;
+            background-color:orange;
+            background-image: url('../static/images/adminhome.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #footer{
+            height:100px;
+            width:1000px;
+            background-color:red;
+        }
+        #f1{
+            height:100px;
+            width:500px;
+            float:left;
+            background-color:slategrey;
+        }
+        #f2{
+            height:100px;
+            width:500px;
+            float:left;
+            background-color:dimgrey;
+        }
+        #menu ul li{
+         display:inline;
+          padding-left:10px;
+          margin-top:5px;
+          //border: 1px solid;
+         }
+         #menu ul li a{
+         text-decoration:none;
+         font-size:18px;
+         color:white;
+        font-family: sans-serif;
+         
+         }
+        #menu ul li a:hover{
+            color: red;
+            font-size: 20px;
+            border: 1px solid red;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+         #menu ul{
+         //margin-left:50px;
+         margin-top:10px;
+      }
+        #f1 p{
+        margin:10px;
+        font-size:40px;
+         }
+
+        #f2 p{
+        margin:10px;
+        font-size:40px;
+         }
+        #button{
+            margin-left: 90px;
+            padding: 3px 30px 3px 30px;
+            font-family: sans-serif;
+            font-size: 20px;
+            border-radius: 10px;
+        }
+        #button:hover{
+            padding: 2.5px 29.5px 2.5px 29.5px;
+            
+            
+        }
+        body{
+            background-image: url('../static/images/bck1.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+
+<div id="outer">
+    <div id="header">
+        <div id="h1">
+            <img src="{% static 'images/logo.png' %}"/>
+        </div>
+        <div id="h2">
+            <p>Welcome to Admin Zone</p>
+        </div>
+    </div>
+    <div id="menu">
+         <ul>
+                <li><a href="{% url 'adminhome' %}">Admin Home</a></li>
+                <li><a href="{% url 'managecomplain' %}">manage Complain</a></li>
+                <li><a href="{% url 'carrermanagement' %}">Carrier Management</a></li>
+                <li><a href="{% url 'packet' %}">Manage Consignment</a></li>
+                <li><a href="{% url 'city' %}">Manage city</a></li>
+                <li><a href="{% url 'qualification' %}">Qualification</a></li>
+                <li><a href="{% url 'logout' %}">logout</a></li>
+            </ul>
+    </div>
+     <div id="main">
+        <form method="post" action="{% url 'addnotification' %}">
+            {% csrf_token %}
+            <h2 style="color:blue; text-align:center;font-family: sans-serif; font-size: 45px;">Notification management</h2>
+            <table style="margin:0px auto; width:50%; font-size: 18px; border-style: dotted solid;">
+                <tr>
+                    <td>Enter notification text:</td>
+                    <td><textarea name="notificationmsg" required="" style="margin: 0px; width: 312px; height: 43px; opacity: 0.6;"></textarea></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input id="button" type="submit" value="Post"/></td>
+                </tr>
+
+            </table>
+        </form>
+        {% if ob %}
+        <table style="margin:20px auto; width:50%; position:sticky"border="1">
+
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Notification</th>
+                <td>Delete</td>
+            </tr>
+            {% for e in ob %}
+            <tr>
+                <td>{{e.id}}</td>
+                <td>{{e.posteddate}}</td>
+                <td>{{e.notificationmsg}}</td>
+                <td><a href="{% url 'delete' e.id %}">delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+            {% endif %}
+
+
+    </div>
+    <div id="footer">
+        <div id="f1">
+            <p>Copyright &copy; to speedex</p>
+        </div>
+        <div id="f2">
+            <p>Devloped by Rishabh mittal</p>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

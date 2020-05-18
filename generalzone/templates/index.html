@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>speedex courier</title>
+    <style>
+        #outer{
+        height:1220px;
+        width:1000px;
+        //border:1px solid black;
+        //background-color:red;
+        margin: 0px auto;
+        }
+        #header{
+        height:150px;
+        width:1000px;
+        //background-color:yellow;
+        
+        }
+        #h1{
+        height:150px;
+        width:150px;
+      //  background-color:yellow;
+        float:left;
+
+        }
+        #h2{height:150px;
+        width:850px;
+        //background-color:green;
+        float:right;
+        
+        }
+        #menu{
+        height:50px;
+        width:1000px;
+        background-color:black;
+        color:white;
+        border:.1px solid white;
+        border-radius: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+         }
+         #slider{
+        height:250px;
+        width:1000px;
+        background-color:blue;
+         }
+          #main{
+        height:600px;
+        width:1000px;
+         // background-color:red;
+         }
+          #mleft{
+        height:600px;
+        width:300px;
+        background-color:deepskyblue;
+         float:left;
+        text-align: center;
+        
+         }
+          #mright{
+        height:598px;
+        width:698px;
+        float:right;
+        background-color:white;
+        background-image:url('../static/images/logo1.png');
+        background-repeat: no-repeat;
+        background-position: top;
+        border: 1px solid white;
+         }
+           #footer{
+        height:150px;
+        width:1000px;
+        background-color:cadetblue;
+
+         }
+         #menu ul li{
+         display:inline;
+          padding-left:80px;
+          margin-top:5px;
+          //border: 1px solid;
+         }
+         #menu ul li a{
+         text-decoration:none;
+         font-size:30px;
+         color:white;
+         }
+         #menu ul{
+         //margin-left:50px;
+         margin-top:10px;
+
+         }
+        #menu ul li a:hover{
+            color: red;
+        }
+
+
+         body{
+         background-color:red;
+         background-image:url('../static/images/background.jpg');
+        background-repeat: no-repeat;
+         }
+
+        #table1{
+            font-size: 24px;
+        }
+        #table2{
+            font-size: 24px;
+            text-align: center;
+            background-color: skyblue;
+        }
+    </style>
+    <script>
+        var img=["slider1.jpg","slider2.jpg","slider3.jpg","slider4.jpeg"];
+        var i=0;
+        "{% load static %}"
+        var baseUrl="{% static 'images/' %}";
+
+        function mov()
+        {
+            if(i>3)
+            {i=0;
+            }
+            document.getElementById("slide").src=baseUrl+img[i];
+            i++;
+            window.setTimeout("mov()",5000);
+
+
+        }
+
+    </script>
+
+</head>
+<body onload="mov()" >
+    <div id="outer">
+        <div id="header">
+            <div id="h1">
+                {% load static %}
+                <img src="{% static 'images/logo.png' %}"/>
+            </div>
+            <div id="h2">
+                <img src="{% static 'images/banner.jpg' %}"/>
+            </div>
+        </div>
+        <div id="menu">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'carrer' %}">Career</a></li>
+                <li><a href="{% url 'complain' %}">Complain</a></li>
+            </ul>
+
+
+        </div>
+        <div id="slider">
+            <img id="slide"  width="1000px" height="250px"/>
+
+        </div>
+        <div id="main">
+            <div id="mleft">
+                <h1>Notification</h1>
+                <marquee direction="up" >
+                {% for e in notification %}
+
+                <p style="text-align: center;">{{e.notificationmsg}}</p>
+                <p style="text-align: center;">Posted data: {{e.posteddate}}</p>
+
+
+                {% endfor %}
+                    </marquee>
+            </div>
+
+
+            <div id="mright">
+                    
+                <h1 style="text-align:center; margin-top:220px;">Search consignment</h1>
+                <form method="post" action="consign">
+                {% csrf_token %}
+                    <table style="margin: 10px auto;" id="table1" >
+
+                        <tr>
+                            <td>Refrence no:</td>
+                            <td><input type="text" name="refno" required/> </td>
+
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td><input type="submit" value="Search"/></td>
+                        </tr>
+
+
+                    </table>
+
+
+                </form>
+
+                <table style="margin: 0px auto;" width="90%" border="1" id="table2">
+                    {% if r %}
+                    <tr>
+                        <td>Status</td>
+                        <td>source</td>
+                        <td>Mid</td>
+                        <td>Destination</td>
+
+                    </tr>
+
+                    <tr>
+                        <td>{{r.status}}</td>
+                        <td>{{r.source}}</td>
+                        <td>{{r.mid}}</td>
+                        <td>{{r.destination}}</td>
+
+                    </tr>
+                    {% else %}
+                        {% if msg %}
+                            <tr><h1 style="text-align: center;">{{msg}}</h1></tr>
+                        {% endif %}
+                    {% endif %}
+                </table>
+
+            </div>
+        </div>
+        <div id="footer"></div>
+    </div>
+
+</body>
+</html>

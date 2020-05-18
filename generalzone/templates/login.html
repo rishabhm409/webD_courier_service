@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LOGIN</title>
+
+    <style>
+#outer
+{
+    height: 1220px;
+    width: 1000px;
+    #border: 1px solid black;
+    margin: 0px auto;
+}
+
+#header
+{
+    height: 150px;
+    width: 1000px;
+    background-color: red;
+}
+
+#logo
+{
+height:150px;
+width:150px;
+background-color: blue;
+float:left;
+
+}
+
+#banner
+{
+height: 150px;
+width: 850px;
+background-color: black;
+float:right;
+}
+
+ #menu{
+        height:50px;
+        width:1000px;
+        background-color:black;
+        color:white;
+        border:.1px solid white;
+        border-radius: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+         }
+
+#menu ul li{
+         display:inline;
+          padding-left:80px;
+          margin-top:5px;
+          //border: 1px solid;
+         }
+
+
+#menu ul li a
+{
+    text-decoration: none;
+    color:white;
+    font-size:24px;
+}
+
+
+#menu ul li a:hover
+{
+    color:red;
+    text-decoration: none;
+}
+
+
+#slider
+{
+    height: 250px;
+    width:1000px;
+    background-color: aqua;
+}
+#parent
+        {
+            height:600px;
+            width:1000px;
+            background-color: red;
+            background-image: url(../static/images/loginbck.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+#left
+{
+    height: 600px;
+    width: 300px;
+    //background-color: chartreuse;
+    float: left;
+}
+
+#right
+{
+    height: 600px;
+    width:700px;
+    //background-color: blanchedalmond;
+    float: right;
+    text-align: center;
+    //background-image: url('../static/images/bck.jpg');
+    background-size: cover;
+}
+
+#footer
+{
+    height:150px;
+    width: 1000px;
+    background-color: black;
+}
+
+#menu ul li a:hover{
+            color: red;
+        }
+body{
+         background-color:red;
+         background-image:url('../static/images/background.jpg');
+        background-repeat: no-repeat;
+         }
+
+#box{
+    height:400px;
+    width:350px;
+    background-color: azure;
+    margin-left: 270px;
+    margin-top: 120px;
+    color: dodgerblue;
+     background-color: black;
+            opacity: .7;
+    box-shadow: 5px 10px 8px 5px black;
+    border: 5px solid black;
+}
+        #box h1{
+            color:mediumblue;
+           
+        }
+        
+        #button{
+            padding: 5px 30px 5px 30px;
+            border-radius: 20px;
+            background-color:deepskyblue;
+            color: mediumblue;
+            font-weight: bolder;
+            border: 1px solid deepskyblue;
+            font-size: 20px;
+            font-family: sans-serif;
+        }
+        #button:hover{
+            background-color: red;
+            color: black;
+             padding: 4px 28px 4px 28px;
+            border: 1px solid red;
+        }
+        .b{
+            padding: 7px 5px 7px 5px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid blue;
+             
+             
+        }
+
+</style>
+
+    <script>
+        var img =["slider1.jpg","slider2.jpg","slider3.jpg","slider4.jpeg"];
+        var i=0;
+
+        "{% load static %}"
+        var baseUrl="{% static 'images/' %}";
+        function moveSlider()
+        {
+            if(i>3)
+            {
+                i=0;
+            }
+            document.getElementById("slide").src=baseUrl+img[i];
+            i++;
+            window.setTimeout("moveSlider()",2000);
+
+        }
+
+    </script>
+
+
+</head>
+<body onload="moveSlider()">
+<span style="color:red;font-size:20px;"><marquee onmouseover="stop()" onmouseout="start()" behavior="alternate" scrollamount="10">WELCOME TO SPEEDEX . WE WILL BE HAPPY TO HELP YOU  </marquee></span>
+
+
+
+<div id="outer">
+    <div id="header">
+
+        <div id="logo">
+             {% load static %}
+
+             <img src="{% static 'images/logo.png' %}" width="150px" height="150px" alt="NOT FOUND" value="LOGO"/>
+        </div>
+
+        <div id="banner">
+
+            <img src="{% static 'images/banner.jpg'%}">
+
+        </div>
+
+    </div>
+
+    <div id="menu">
+        <ul>
+            <li><a href="{% url 'index' %}">HOME</a></li>
+            <li><a href="{% url 'about' %}">ABOUT US</a></li>
+            <li><a href="{% url 'login' %}">LOGIN</a></li>
+            <li><a href="{% url 'carrer' %}">CAREER</a></li>
+            <li><a href="{% url 'complain' %}">COMPLAIN</a></li>
+
+        </ul>
+    </div>
+
+    <div id="slider">
+
+        <img id="slide" width="1000px" height="250px">
+
+    </div>
+
+
+    <div id="parent">
+
+        <div id="left">
+        </div>
+
+        <div id="right">
+                <div id="box">
+                    <img src="../static/images/login.png" height="200px" width="200px" style="margin-top: -100px;">
+            <span style="color:red;"><h1> LOGIN FORM </h1></span>
+            <form method="post" action="{% url 'validateuser' %}">
+                {% csrf_token %}
+                <table style="margin: 0px auto;width: 50%;">
+                    <tr>
+                    <td><h3>ENTER USER ID</h3></td>
+                        <td><input type="text" class="b" name="username" required/></td>
+                    </tr>
+
+                    <tr>
+                        <td><h3>ENTER PASSWORD</h3></td>
+                        <td><input class="b" type="password" name="password" required/></td>
+                    </tr>
+
+                     </table>
+
+                        
+                            
+                            <input id="button" type="submit" id="button" name="login" value="LOGIN">
+                            
+                            
+                    
+
+               
+            </form>
+                    </div>
+        </div>
+
+    </div>
+
+    <div id="footer">
+    </div>
+
+
+
+</div>
+</body>
+</html>

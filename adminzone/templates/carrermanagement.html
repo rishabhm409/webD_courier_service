@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrer management</title>
+    <style>
+        #outer{
+            height:auto;
+            width:1000px;
+            //border: 1px solid black;
+            margin: 0px auto;
+        }
+        #header{
+            height:150px;
+            width:1000px;
+            //background-color:red;
+        }
+        #h1{
+            height:150px;
+            width:150px;
+            float:left;
+            //background-color:yellow;
+        }
+        #h2{
+            height:150px;
+            width:850px;
+            float:left;
+            //background-color:blue;
+            font-size:76px;
+            text-align:center;
+        }
+        #h2 p{
+        margin-top:15px;
+
+        }
+        #menu{
+            height:50px;
+            width:1000px;
+            background-color:red;
+            border:1px solid black;
+        }
+        #main{
+            //margin-top:-20px;
+            height:600px;
+            width:1000px;
+            background-color:orange;
+            border: 1px solid;
+        }
+        #footer{
+            height:100px;
+            width:1000px;
+            background-color:red;
+        }
+        #f1{
+            height:100px;
+            width:500px;
+            float:left;
+            background-color:yellow;
+        }
+        #f2{
+            height:100px;
+            width:500px;
+            float:left;
+            background-color:blue;
+        }
+        #menu ul li{
+         display:inline;
+          padding-left:10px;
+          margin-top:5px;
+          //border: 1px solid;
+         }
+         #menu ul li a{
+         text-decoration:none;
+         font-size:20px;
+         color:black;
+         }
+         #menu ul{
+         //margin-left:50px;
+         margin-top:10px;
+      }
+        #f1 p{
+        margin:10px;
+        font-size:40px;
+         }
+
+        #f2 p{
+        margin:10px;
+        font-size:40px;
+         }
+
+    </style>
+</head>
+<body>
+{% load static %}
+
+<div id="outer">
+    <div id="header">
+        <div id="h1">
+            <img src="{% static 'images/logo.png' %}"/>
+        </div>
+        <div id="h2">
+            <p>Welcome to Admin Zone</p>
+        </div>
+    </div>
+    <div id="menu">
+         <ul>
+                <li><a href="{% url 'adminhome' %}">Admin Home</a></li>
+                <li><a href="{% url 'managecomplain' %}">manage Complain</a></li>
+                <li><a href="{% url 'carrermanagement' %}">Carrier Management</a></li>
+                <li><a href="{% url 'packet' %}">Manage Consignment</a></li>
+                <li><a href="{% url 'city' %}">Manage city</a></li>
+                <li><a href="{% url 'qualification' %}">Qualification</a></li>
+                <li><a href="{% url 'logout' %}">logout</a></li>
+            </ul>
+    </div>
+     <div id="main">
+
+          <table style="margin:20px auto; width:90%;" border="1">
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>gender</th>
+                <th>Qualification</th>
+                <th>Experience</th>
+                <th>Address</th>
+                <th>Contact No</th>
+                <th>Email Id</th>
+                <th>CV</th>
+                <th>Delete</th>
+
+            </tr>
+        {% if ob %}
+            {% for e in ob %}
+            <tr>
+                <td>{{e.id}}</td>
+                <td>{{e.name}}</td>
+                <td>{{e.gender}}</td>
+                <td>{{e.qualification}}</td>
+                <td>{{e.experience}}</td>
+                <td>{{e.address}}</td>
+                <td>{{e.contactno}}</td>
+                <td>{{e.emailaddress}}</td>
+                <td>cv</td>
+                <td><a href="{% url 'delete3' e.id %}">delete</a></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <div id="footer">
+        <div id="f1">
+            <p>Copyright &n to speedex</p>
+        </div>
+        <div id="f2">
+            <p>Devloped by Rishabh mittal</p>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
